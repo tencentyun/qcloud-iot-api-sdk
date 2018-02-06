@@ -1,0 +1,6 @@
+RestAPI使用说明
+
+1. 部署Python 2.7版本
+2. 安装依赖库，依赖库见附件pythonlibs(安装方法:python setup.py install，最后安装requests)
+3. 注册腾讯云帐号，新建个人API密钥( https://console.qcloud.com/capi )，生成密钥后修改RestAPI中airConditionerCtrl.py中的参数secretId和secretKey替换成自己的
+4. 基于附件RestAPI目录里面的airConditionerCtrl.py定制修改
