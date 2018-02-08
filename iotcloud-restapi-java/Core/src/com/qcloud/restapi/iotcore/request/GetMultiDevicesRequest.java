@@ -5,10 +5,12 @@ public class GetMultiDevicesRequest extends Request {
     /**
      * 构造GetMultiDevicesRequest对象
      *
+     * @param productID 服务端应答返回的productID
      * @param taskID 服务端应答返回的taskID（可从GetCreateMultiDevTaskResponse对像中获取taskID）
      */
-    public GetMultiDevicesRequest(String taskID) {
+    public GetMultiDevicesRequest(String productID, String taskID) {
         put("Action", "GetMultiDevices");
+        put("productID", productID);
         put("taskID", taskID);
         put("pageSize", "10");
         put("pageNum", "1");

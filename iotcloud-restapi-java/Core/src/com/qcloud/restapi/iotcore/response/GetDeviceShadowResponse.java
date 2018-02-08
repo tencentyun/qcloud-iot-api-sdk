@@ -15,7 +15,29 @@ public class GetDeviceShadowResponse extends Response {
     public String getData() {
         try {
             if (jsonObj != null) {
-                return jsonObj.get("data").getAsString();
+                return jsonObj.get("data").toString();
+            }
+        }catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public String getPayload() {
+        try {
+            if (jsonObj != null) {
+                return jsonObj.getAsJsonObject("data").getAsJsonObject("payload").toString();
+            }
+        }catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public String getPayloadVersion() {
+        try {
+            if (jsonObj != null) {
+                return jsonObj.getAsJsonObject("data").getAsJsonObject("payload").get("version").getAsString();
             }
         }catch (Exception e) {
         }

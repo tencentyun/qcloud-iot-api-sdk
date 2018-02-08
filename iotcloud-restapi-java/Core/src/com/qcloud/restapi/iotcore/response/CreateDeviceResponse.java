@@ -44,4 +44,15 @@ public class CreateDeviceResponse extends Response {
 
         return "";
     }
+
+    public String getDevicePsk() {
+        try {
+            if (jsonObj != null) {
+                return jsonObj.get("devicePsk").getAsString();
+            }
+        }catch (Exception e) {
+        }
+
+        return "";
+    }
 }

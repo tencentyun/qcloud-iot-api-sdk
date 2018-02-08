@@ -15,43 +15,82 @@ public class Main {
 
         String stateJson = "{\"desired\": {\"color\": \"red\"}}";
 
+        String taskID = "";
         TXIotCloud iotCloud = new TXIotCloud(SECRET_ID, SECRET_KEY);
-        Response response;
 
-        response = iotCloud.createProduct(new CreateProductRequest("james_test_product_y", "by jamesbond", "gz"));
-        System.out.println("response:" + response);
+        {
+            CreateProductResponse response = iotCloud.createProduct(new CreateProductRequest("james_test_product_ddd", "by jamesbond", "2", "gz"));
+            System.out.println("response:" + response);
+        }
 
-        response = iotCloud.createDevice(new CreateDeviceRequest("DWBCZHEHPQ", "test_dev"));
-        System.out.println("response:" + response);
+        {
+            CreateDeviceResponse response = iotCloud.createDevice(new CreateDeviceRequest("DWBCZHEHPQ", "test_dev"));
+            System.out.println("response:" + response);
+        }
 
-        response = iotCloud.getDeviceShadow(new GetDeviceShadowRequest("DWBCZHEHPQ", "test_dev"));
-        System.out.println("response:" + response);
+        {
+            GetDeviceShadowResponse response = iotCloud.getDeviceShadow(new GetDeviceShadowRequest("DWBCZHEHPQ", "test_dev"));
+            String data = response.getData();
+            System.out.println("data:" + data);
 
-        response = iotCloud.listDevices(new ListDevicesRequest("0DZOVT14JK"));
-        System.out.println("response:" + response);
+            String payload = response.getPayload();
+            System.out.println("payload:" + payload);
 
-        response = iotCloud.listProducts(new ListProductsRequest());
-        System.out.println("response:" + response);
+            String version = response.getPayloadVersion();
+            System.out.println("version:" + version);
 
-        response = iotCloud.updateDeviceShadow(new UpdateDeviceShadowRequest("DWBCZHEHPQ", "test_dev", stateJson, 1));
-        System.out.println("response:" + response);
+            System.out.println("response:" + response);
+        }
 
-        response = iotCloud.createMultiDevice(new CreateMultiDeviceRequest("DWBCZHEHPQ", new String[] {"devapple", "devbaba", "deveggs"}));
-        System.out.println("response:" + response);
+        {
+            ListDevicesResponse response = iotCloud.listDevices(new ListDevicesRequest("0DZOVT14JK"));
+            response.getDevices();
+            System.out.println("response:" + response);
+        }
 
-        response = iotCloud.deleteDevice(new DeleteDeviceRequest("DWBCZHEHPQ", "xxxx"));
-        System.out.println("response:" + response);
+        {
+            ListProductsResponse response = iotCloud.listProducts(new ListProductsRequest());
+            response.getProducts();
+            System.out.println("response:" + response);
+        }
 
-        response = iotCloud.deleteProduct(new DeleteProductRequest("DWBCZHEHPQ"));
-        System.out.println("response:" + response);
+        {
+            UpdateDeviceShadowResponse response = iotCloud.updateDeviceShadow(new UpdateDeviceShadowRequest("DWBCZHEHPQ", "test_dev", stateJson, 0));
+            System.out.println("response:" + response);
+        }
 
-        response = iotCloud.createMultiDevTask(new GetCreateMultiDevTaskRequest("5a6727173332ea33dc659041"));
-        System.out.println("response:" + response);
+        {
+            CreateMultiDeviceResponse response = iotCloud.createMultiDevice(new CreateMultiDeviceRequest("DWBCZHEHPQ", new String[]{"devx", "devy", "devz"}));
+            taskID = response.getTaskID();
 
-        response = iotCloud.getMultiDevices(new GetMultiDevicesRequest("5a6727173332ea33dc659041"));
-        System.out.println("response:" + response);
+            System.out.println("response:" + response);
+            System.out.println("taskID:" + taskID);
+        }
 
-        response = iotCloud.publish(new PublishRequest("0DZOVT14JK", "shock1", "0DZOVT14JK/shock1/data", "adadf"));
-        System.out.println("response:" + response);
+        {
+            DeleteDeviceResponse response = iotCloud.deleteDevice(new DeleteDeviceRequest("DWBCZHEHPQ", "xxxx"));
+            System.out.println("response:" + response);
+        }
+
+        {
+            DeleteProductResponse response = iotCloud.deleteProduct(new DeleteProductRequest("DWBCZHEHPQ"));
+            System.out.println("response:" + response);
+        }
+
+        {
+            GetCreateMultiDevTaskResponse response = iotCloud.createMultiDevTask(new GetCreateMultiDevTaskRequest("DWBCZHEHPQ", taskID));
+            System.out.println("response:" + response);
+        }
+
+        {
+            GetMultiDevicesResponse response = iotCloud.getMultiDevices(new GetMultiDevicesRequest("DWBCZHEHPQ",taskID));
+            response.getProducts();
+            System.out.println("response:" + response);
+        }
+
+        {
+            PublishResponse response = iotCloud.publish(new PublishRequest("0DZOVT14JK", "shock1", "0DZOVT14JK/shock1/data"));
+            System.out.println("response:" + response);
+        }
     }
 }

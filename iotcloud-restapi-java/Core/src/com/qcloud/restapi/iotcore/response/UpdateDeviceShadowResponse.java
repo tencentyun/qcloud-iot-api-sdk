@@ -14,7 +14,29 @@ public class UpdateDeviceShadowResponse extends Response {
     public String getData() {
         try {
             if (jsonObj != null) {
-                return jsonObj.getAsJsonObject("data").getAsString();
+                return jsonObj.getAsJsonObject("data").toString();
+            }
+        }catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public String getPayload() {
+        try {
+            if (jsonObj != null) {
+                return jsonObj.getAsJsonObject("data").getAsJsonObject("payload").toString();
+            }
+        }catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public String getPayloadVersion() {
+        try {
+            if (jsonObj != null) {
+                return jsonObj.getAsJsonObject("data").getAsJsonObject("payload").get("version").getAsString();
             }
         }catch (Exception e) {
         }

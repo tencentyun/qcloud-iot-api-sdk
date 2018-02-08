@@ -10,6 +10,7 @@ public class GetMultiDevicesResponse extends Response {
         public String deviceName = "";
         public String deviceCert = "";
         public String devicePrivateKey = "";
+        public String devicePsk = "";
         public int result = -1;
 
         public CreateDeviceInfo() {
@@ -55,6 +56,11 @@ public class GetMultiDevicesResponse extends Response {
 
                 try {
                     info.devicePrivateKey = arr.get(i).getAsJsonObject().get("devicePrivateKey").getAsString();
+                }catch (Exception e) {
+                }
+
+                try {
+                    info.devicePsk = arr.get(i).getAsJsonObject().get("devicePsk").getAsString();
                 }catch (Exception e) {
                 }
 
