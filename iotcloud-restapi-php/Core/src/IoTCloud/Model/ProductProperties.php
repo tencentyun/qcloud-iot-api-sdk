@@ -12,9 +12,9 @@ class ProductProperties
     private $productDescription;
 
     /**
-     * 加密类型
+     * 加密类型，1表示非对称加密，2表示对称加密，默认值是1
      */
-    private $encryptionType;
+    private $encryptionType = "1";
 
     /**
      * 产品所属区域
@@ -23,9 +23,15 @@ class ProductProperties
 
     /**
      * ProductProperties constructor.
+     * @param $productDescription   产品描述
+     * @param $encryptionType       加密类型，1表示非对称加密，2表示对称加密，默认值是1
+     * @param $region               产品所属区域
      */
-    public function __construct()
+    public function __construct($productDescription, $encryptionType, $region)
     {
+        $this->productDescription = $productDescription;
+        $this->encryptionType = $encryptionType;
+        $this->region = $region;
     }
 
     /**
@@ -54,7 +60,7 @@ class ProductProperties
     }
 
     /**
-     * 设置加密方式
+     * 设置加密方式，1表示非对称加密，2表示对称加，默认值是1
      * @param $encryptionType
      */
     public function setEncryptionType($encryptionType)

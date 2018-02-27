@@ -73,16 +73,20 @@ $client->setProxy($proxyServer, $proxyPort);
 ```
 <?php
 include 'TXIoTCloud.phar';
-use TXIoTCloud\Request as IoT;
+use TXIoTCloud\Request as Request;
+use TXIoTCloud\Model as Model;
 use TXIoTCloud\Services\TXIoTCloudClient;
 
 $timestamp = time();
 $nonce = random_int(1, PHP_INT_MAX);
-$productName = "test_product";
-$productDescription = "测试产品";
+
+$productName = "your_product_name";
+$description = "your_product_description";
+$encryptionType = "1";
 $productRegion = "gz";
 
-$createProductRequest = new IoT\CreateProductRequest($timestamp, $nonce, $productName, $productDescription, $productRegion);
+$productProperties = new Model\ProductProperties($description, $encryptionType, $productRegion);
+$createProductRequest = new Request\CreateProductRequest($this->timestamp, $this->nonce, $productName, $productProperties);
 $createProductResponse = $client->createProduct($createProductRequest);
 ...
 ```

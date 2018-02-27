@@ -21,13 +21,14 @@ class GetMultiDevicesRequest extends GetCreateMultiDevTaskRequest
      * GetCreateMultiDevTaskRequest constructor.
      * @param $timestamp   当前unix时间戳
      * @param $nonce       随机正整数，与timestamp联合起来，用于防止重放攻击
+     * @param $productID   产品ID
      * @param $taskID      任务ID
      * @param $pageNum     分页页数
      * @param $pageSize    分页大小
      */
-    public function __construct($timestamp, $nonce, $taskID, $pageNum, $pageSize)
+    public function __construct($timestamp, $nonce, $productID, $taskID, $pageNum, $pageSize)
     {
-        parent::__construct($timestamp, $nonce, $taskID);
+        parent::__construct($timestamp, $nonce, $productID, $taskID);
         $this->pageNum = $pageNum;
         $this->pageSize = $pageSize;
     }

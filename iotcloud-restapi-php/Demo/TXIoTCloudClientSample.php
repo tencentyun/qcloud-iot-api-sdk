@@ -7,7 +7,8 @@ include 'TXIoTCloud.phar';
 
 use PHPUnit\Framework\TestCase;
 
-use TXIoTCloud\Request as IoT;
+use TXIoTCloud\Request as Request;
+use TXIoTCloud\Model as Model;
 use TXIoTCloud\Services\TXIoTCloudClient;
 
 define("PROXY_SERVER", "127.0.0.1");
@@ -41,11 +42,14 @@ class TXIoTCloudClientSample extends TestCase
      */
     public function testCreateProduct()
     {
-        $name = "your_device_name";
-        $description = "your_device_description";
+        $name = "your_product_name";
+        $description = "your_product_description";
+        $encryptionType = "1";
         $productRegion = "gz";
 
-        $createProductRequest = new IoT\CreateProductRequest($this->timestamp, $this->nonce, $name, $description, $productRegion);
+        $productProperties = new Model\ProductProperties($description, $encryptionType, $productRegion);
+
+        $createProductRequest = new Request\CreateProductRequest($this->timestamp, $this->nonce, $name, $productProperties);
 
         $createProductResponse = $this->client->createProduct($createProductRequest);
 
@@ -61,7 +65,7 @@ class TXIoTCloudClientSample extends TestCase
     {
         $productID = "your_productId";
 
-        $deleteProductRequest = new IoT\DeleteProductRequest($this->timestamp, $this->nonce, $productID);
+        $deleteProductRequest = new Request\DeleteProductRequest($this->timestamp, $this->nonce, $productID);
 
         $deleteProductResponse = $this->client->deleteProduct($deleteProductRequest);
 
@@ -78,7 +82,7 @@ class TXIoTCloudClientSample extends TestCase
         $name = "your_device_name";
         $productID = "your_productId";
 
-        $createDeviceRequest = new IoT\CreateDeviceRequest($this->timestamp, $this->nonce, $name, $productID);
+        $createDeviceRequest = new Request\CreateDeviceRequest($this->timestamp, $this->nonce, $name, $productID);
 
         $createDeviceResponse = $this->client->createDevice($createDeviceRequest);
 
@@ -95,7 +99,7 @@ class TXIoTCloudClientSample extends TestCase
         $name = "your_device_name";
         $productID = "your_productId";
 
-        $deleteDeviceRequest = new IoT\DeleteDeviceRequest($this->timestamp, $this->nonce, $name, $productID);
+        $deleteDeviceRequest = new Request\DeleteDeviceRequest($this->timestamp, $this->nonce, $name, $productID);
 
         $deleteDeviceResponse = $this->client->deleteDevice($deleteDeviceRequest);
 
@@ -112,7 +116,7 @@ class TXIoTCloudClientSample extends TestCase
         $productID = "your_productId";
         $deviceName = "your_device_name";
 
-        $getDeviceShadowRequest = new IoT\GetDeviceShadowRequest($this->timestamp, $this->nonce, $productID, $deviceName);
+        $getDeviceShadowRequest = new Request\GetDeviceShadowRequest($this->timestamp, $this->nonce, $productID, $deviceName);
 
         $getDeviceShadowResponse = $this->client->getDeviceShadow($getDeviceShadowRequest);
 
@@ -141,7 +145,7 @@ class TXIoTCloudClientSample extends TestCase
 
         $version = 1;
 
-        $updateDeviceShadowRequest = new IoT\UpdateDeviceShadowRequest($this->timestamp, $this->nonce, $productID, $deviceName, $state, $version);
+        $updateDeviceShadowRequest = new Request\UpdateDeviceShadowRequest($this->timestamp, $this->nonce, $productID, $deviceName, $state, $version);
 
         $updateDeviceShadowRequest = $this->client->updateDeviceShadow($updateDeviceShadowRequest);
 
@@ -159,7 +163,7 @@ class TXIoTCloudClientSample extends TestCase
         $pageSize = 20;
         $pageNum = 1;
 
-        $listDevicesRequest = new IoT\ListDevicesRequest($this->timestamp, $this->nonce, $pageSize, $pageNum, $productID);
+        $listDevicesRequest = new Request\ListDevicesRequest($this->timestamp, $this->nonce, $pageSize, $pageNum, $productID);
 
         $listDevicesResponse = $this->client->listDevices($listDevicesRequest);
 
@@ -176,7 +180,7 @@ class TXIoTCloudClientSample extends TestCase
         $pageSize = 20;
         $pageNum = 1;
 
-        $listProductsRequest = new IoT\ListProductsRequest($this->timestamp, $this->nonce, $pageSize, $pageNum);
+        $listProductsRequest = new Request\ListProductsRequest($this->timestamp, $this->nonce, $pageSize, $pageNum);
 
         $listProductsResponse = $this->client->listProducts($listProductsRequest);
 
@@ -197,7 +201,7 @@ class TXIoTCloudClientSample extends TestCase
             $listDeviceName[$i] = $deviceName . "_" . $i;
         }
 
-        $createMultiDeviceRequest = new IoT\CreateMultiDeviceRequest($this->timestamp, $this->nonce, $productID, $listDeviceName);
+        $createMultiDeviceRequest = new Request\CreateMultiDeviceRequest($this->timestamp, $this->nonce, $productID, $listDeviceName);
 
         $createMultiDeviceResponse = $this->client->createMultiDevice($createMultiDeviceRequest);
 
@@ -211,9 +215,10 @@ class TXIoTCloudClientSample extends TestCase
      */
     public function testGetCreateMultiDevTask()
     {
+        $productID = "your_productId";
         $taskID = "your_taskId";
 
-        $getCreateMultiDevTaskRequest = new IoT\GetCreateMultiDevTaskRequest($this->timestamp, $this->nonce, $taskID);
+        $getCreateMultiDevTaskRequest = new Request\GetCreateMultiDevTaskRequest($this->timestamp, $this->nonce, $productID, $taskID);
 
         $getCreateMultiDevTaskResponse = $this->client->getCreateMultiDevTask($getCreateMultiDevTaskRequest);
 
@@ -227,11 +232,12 @@ class TXIoTCloudClientSample extends TestCase
      */
     public function testGetMultiDevices()
     {
+        $productID = "your_productId";
         $taskID = "your_taskId";
         $pageNum = 1;
         $pageSize = 20;
 
-        $getMultiDeviceRequest = new IoT\GetMultiDevicesRequest($this->timestamp, $this->nonce, $taskID, $pageNum, $pageSize);
+        $getMultiDeviceRequest = new Request\GetMultiDevicesRequest($this->timestamp, $this->nonce, $productID, $taskID, $pageNum, $pageSize);
 
         $getMultiDeviceResponse = $this->client->getMultiDevices($getMultiDeviceRequest);
 
@@ -250,7 +256,7 @@ class TXIoTCloudClientSample extends TestCase
         $topic = $productID . "/" . $deviceName . "/" . "event";
         $payload = "test";
 
-        $publishRequest = new IoT\PublishRequest($this->timestamp, $this->nonce, $topic, $payload, $productID, $deviceName);
+        $publishRequest = new Request\PublishRequest($this->timestamp, $this->nonce, $topic, $payload, $productID, $deviceName);
 
         $publishResponse = $this->client->publish($publishRequest);
 

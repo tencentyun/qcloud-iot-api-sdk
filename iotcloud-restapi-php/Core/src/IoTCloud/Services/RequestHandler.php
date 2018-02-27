@@ -4,6 +4,7 @@ namespace TXIoTCloud\Services;
 
 use TXIoTCloud\Http\HttpClient;
 use TXIoTCloud\Exception\IllegalArgumentException;
+use TXIoTCloud\Model\ProductProperties;
 use TXIoTCloud\Request\CreateMultiDeviceRequest;
 use TXIoTCloud\Request\CreateProductRequest;
 use TXIoTCloud\Request\CreateDeviceRequest;
@@ -54,7 +55,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleCreateProductRequest(CreateProductRequest $createProductRequest): CreateProductResponse
+    public static function handleCreateProductRequest(CreateProductRequest $createProductRequest)
     {
 
         $parameterArray = array();
@@ -72,18 +73,13 @@ class RequestHandler
         }
 
         $productProperties = array();
-        $productDescription = $createProductRequest->getProductDescription();
-        if (empty($productDescription)) {
-            throw new IllegalArgumentException("productDescription is empty!");
+        $productProperty = $createProductRequest->getProductProperties();
+        if (null == $productProperty || !($productProperty instanceof ProductProperties)) {
+            throw new IllegalArgumentException("productProperties is invalid!");
         } else {
-            $productProperties["productDescription"] = $productDescription;
-        }
-
-        $productRegion = $createProductRequest->getProductRegion();
-        if (empty($productRegion)) {
-            throw  new IllegalArgumentException("productDescription is empty!");
-        } else {
-            $productProperties["region"] = $productRegion;
+            $productProperties["productDescription"] = $productProperty->getProductDescription();
+            $productProperties["encryptionType"] = $productProperty->getEncryptionType();
+            $productProperties["region"] = $productProperty->getRegion();
         }
 
         $parameterArray["productProperties"] = json_encode($productProperties);
@@ -101,7 +97,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleDeleteProductRequest(DeleteProductRequest $deleteProductRequest): DeleteProductResponse
+    public static function handleDeleteProductRequest(DeleteProductRequest $deleteProductRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = DELETE_PRODUCT;
@@ -130,7 +126,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleCreateDeviceRequest(CreateDeviceRequest $createDeviceRequest): CreateDeviceResponse
+    public static function handleCreateDeviceRequest(CreateDeviceRequest $createDeviceRequest)
     {
         if (null == $createDeviceRequest) {
             throw new IllegalArgumentException("createDeviceRequest instance is null!");
@@ -147,7 +143,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleDeleteDeviceRequest(DeleteDeviceRequest $deleteDeviceRequest): DeleteDeviceResponse
+    public static function handleDeleteDeviceRequest(DeleteDeviceRequest $deleteDeviceRequest)
     {
         if (null == $deleteDeviceRequest) {
             throw new IllegalArgumentException("deleteDeviceRequest instance is null!");
@@ -165,7 +161,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleGetDeviceShadowRequest(GetDeviceShadowRequest $getDeviceShadowRequest): GetDeviceShadowResponse
+    public static function handleGetDeviceShadowRequest(GetDeviceShadowRequest $getDeviceShadowRequest)
     {
 
         if (null == $getDeviceShadowRequest) {
@@ -179,7 +175,7 @@ class RequestHandler
     /**
      * 处理查询物联云设备的设备列表
      * @param $listDevicesRequest
-     * @return \IoTCloud\Response\CreateDeviceResponse|\IoTCloud\Response\CreateProductResponse|void
+     * @return \TXIoTCloud\Response\CreateDeviceResponse|\TXIoTCloud\Response\CreateProductResponse|void
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
@@ -210,7 +206,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleListProductsRequest(ListProductsRequest $listProductsRequest): ListProductsResponse
+    public static function handleListProductsRequest(ListProductsRequest $listProductsRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = LIST_PRODUCTS;
@@ -230,7 +226,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleUpdateDeviceShadowRequest(UpdateDeviceShadowRequest $updateDeviceShadowRequest): UpdateDeviceShadowResponse
+    public static function handleUpdateDeviceShadowRequest(UpdateDeviceShadowRequest $updateDeviceShadowRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = UPDATE_DEVICE_SHADOW;
@@ -279,7 +275,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleCreateMultiDeviceRequest(CreateMultiDeviceRequest $createMultiDeviceRequest): CreateMultiDeviceResponse
+    public static function handleCreateMultiDeviceRequest(CreateMultiDeviceRequest $createMultiDeviceRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = CREATE_MULTI_DEVICE;
@@ -322,13 +318,20 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleGetCreateMultiDevTaskRequest(GetCreateMultiDevTaskRequest $getCreateMultiDevTaskRequest): GetCreateMultiDevTaskResponse
+    public static function handleGetCreateMultiDevTaskRequest(GetCreateMultiDevTaskRequest $getCreateMultiDevTaskRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = GET_CREATE_MULTI_DEV_TASK;
 
         if (null == $getCreateMultiDevTaskRequest) {
             throw new IllegalArgumentException("getCreateMultiDevTaskRequest instance is null!");
+        }
+
+        $productID = $getCreateMultiDevTaskRequest->getProductID();
+        if (empty($productID)) {
+            throw new IllegalArgumentException("productID is empty!");
+        } else {
+            $parameterArray["productID"] = $productID;
         }
 
         $taskID = $getCreateMultiDevTaskRequest->getTaskID();
@@ -351,13 +354,20 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handleGetMultiDevicesRequest(GetMultiDevicesRequest $getMultiDevicesRequest): GetMultiDevicesResponse
+    public static function handleGetMultiDevicesRequest(GetMultiDevicesRequest $getMultiDevicesRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = GET_MULTI_DEVICES;
 
         if (null == $getMultiDevicesRequest) {
             throw new IllegalArgumentException("getMultiDevicesRequest instance is null!");
+        }
+
+        $productID = $getMultiDevicesRequest->getProductID();
+        if (empty($productID)) {
+            throw new IllegalArgumentException("productID is empty!");
+        } else {
+            $parameterArray["productID"] = $productID;
         }
 
         $taskID = $getMultiDevicesRequest->getTaskID();
@@ -394,7 +404,7 @@ class RequestHandler
      * @throws IllegalArgumentException
      * @throws \TXIoTCloud\Exception\ClientException
      */
-    public static function handlePublishRequest(PublishRequest $publishRequest): PublishResponse
+    public static function handlePublishRequest(PublishRequest $publishRequest)
     {
         $parameterArray = array();
         $parameterArray["Action"] = PUBLISH;

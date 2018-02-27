@@ -102,10 +102,10 @@ class TXIoTCloudClient
      * 创建产品
      * @param CreateProductRequest $createProductRequest
      * @return CreateProductResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function createProduct(CreateProductRequest $createProductRequest): CreateProductResponse
+    public function createProduct(CreateProductRequest $createProductRequest)
     {
         return RequestHandler::handleCreateProductRequest($createProductRequest);
     }
@@ -114,10 +114,10 @@ class TXIoTCloudClient
      * 删除一个物联云产品
      * @param DeleteProductRequest $deleteProductRequest
      * @return DeleteProductResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function deleteProduct(DeleteProductRequest $deleteProductRequest): DeleteProductResponse
+    public function deleteProduct(DeleteProductRequest $deleteProductRequest)
     {
         return RequestHandler::handleDeleteProductRequest($deleteProductRequest);
     }
@@ -126,10 +126,10 @@ class TXIoTCloudClient
      * 查询物联云产品的产品列表
      * @param ListProductsRequest $listProductsRequest
      * @return ListProductsResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function listProducts(ListProductsRequest $listProductsRequest): ListProductsResponse
+    public function listProducts(ListProductsRequest $listProductsRequest)
     {
         return RequestHandler::handleListProductsRequest($listProductsRequest);
     }
@@ -138,10 +138,10 @@ class TXIoTCloudClient
      * 创建设备
      * @param CreateDeviceRequest $createDeviceRequest
      * @return CreateDeviceResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function createDevice(CreateDeviceRequest $createDeviceRequest): CreateDeviceResponse
+    public function createDevice(CreateDeviceRequest $createDeviceRequest)
     {
         return RequestHandler::handleCreateDeviceRequest($createDeviceRequest);
     }
@@ -150,10 +150,10 @@ class TXIoTCloudClient
      * 删除物联云设备
      * @param DeleteDeviceRequest $deleteDeviceRequest
      * @return DeleteDeviceResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function deleteDevice(DeleteDeviceRequest $deleteDeviceRequest): DeleteDeviceResponse
+    public function deleteDevice(DeleteDeviceRequest $deleteDeviceRequest)
     {
         return RequestHandler::handleDeleteDeviceRequest($deleteDeviceRequest);
     }
@@ -162,10 +162,10 @@ class TXIoTCloudClient
      * 查询虚拟设备信息
      * @param GetDeviceShadowRequest $getDeviceShadowRequest
      * @return GetDeviceShadowResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function getDeviceShadow(GetDeviceShadowRequest $getDeviceShadowRequest): GetDeviceShadowResponse
+    public function getDeviceShadow(GetDeviceShadowRequest $getDeviceShadowRequest)
     {
         return RequestHandler::handleGetDeviceShadowRequest($getDeviceShadowRequest);
     }
@@ -174,10 +174,10 @@ class TXIoTCloudClient
      * 更新虚拟设备信息
      * @param UpdateDeviceShadowRequest $updateDeviceShadowRequest
      * @return UpdateDeviceShadowResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function updateDeviceShadow(UpdateDeviceShadowRequest $updateDeviceShadowRequest): UpdateDeviceShadowResponse
+    public function updateDeviceShadow(UpdateDeviceShadowRequest $updateDeviceShadowRequest)
     {
         return RequestHandler::handleUpdateDeviceShadowRequest($updateDeviceShadowRequest);
     }
@@ -186,10 +186,10 @@ class TXIoTCloudClient
      * 查询物联云设备的设备列表
      * @param ListDevicesRequest $listDevicesRequest
      * @return ListDevicesResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function listDevices(ListDevicesRequest $listDevicesRequest): ListDevicesResponse
+    public function listDevices(ListDevicesRequest $listDevicesRequest)
     {
         return RequestHandler::handleListDevicesRequest($listDevicesRequest);
     }
@@ -198,10 +198,10 @@ class TXIoTCloudClient
      * 批量创建物联云设备
      * @param CreateMultiDeviceRequest $createMultiDeviceRequest
      * @return CreateMultiDeviceResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function createMultiDevice(CreateMultiDeviceRequest $createMultiDeviceRequest): CreateMultiDeviceResponse
+    public function createMultiDevice(CreateMultiDeviceRequest $createMultiDeviceRequest)
     {
         return RequestHandler::handleCreateMultiDeviceRequest($createMultiDeviceRequest);
     }
@@ -210,10 +210,10 @@ class TXIoTCloudClient
      * 查询批量创建设备任务的执行状态
      * @param GetCreateMultiDevTaskRequest $getCreateMultiDevTaskRequest
      * @return GetCreateMultiDevTaskResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function getCreateMultiDevTask(GetCreateMultiDevTaskRequest $getCreateMultiDevTaskRequest): GetCreateMultiDevTaskResponse
+    public function getCreateMultiDevTask(GetCreateMultiDevTaskRequest $getCreateMultiDevTaskRequest)
     {
         return RequestHandler::handleGetCreateMultiDevTaskRequest($getCreateMultiDevTaskRequest);
     }
@@ -222,10 +222,10 @@ class TXIoTCloudClient
      * 查询批量创建设备的执行结果
      * @param GetMultiDevicesRequest $getMultiDevicesRequest
      * @return GetMultiDevicesResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function getMultiDevices(GetMultiDevicesRequest $getMultiDevicesRequest): GetMultiDevicesResponse
+    public function getMultiDevices(GetMultiDevicesRequest $getMultiDevicesRequest)
     {
         return RequestHandler::handleGetMultiDevicesRequest($getMultiDevicesRequest);
     }
@@ -234,10 +234,10 @@ class TXIoTCloudClient
      * 向某个主题发消息请求
      * @param PublishRequest $publishRequest
      * @return PublishResponse
-     * @throws \IoTCloud\Exception\ClientException
-     * @throws \IoTCloud\Exception\IllegalArgumentException
+     * @throws \TXIoTCloud\Exception\ClientException
+     * @throws \TXIoTCloud\Exception\IllegalArgumentException
      */
-    public function publish(PublishRequest $publishRequest): PublishResponse
+    public function publish(PublishRequest $publishRequest)
     {
         return RequestHandler::handlePublishRequest($publishRequest);
     }

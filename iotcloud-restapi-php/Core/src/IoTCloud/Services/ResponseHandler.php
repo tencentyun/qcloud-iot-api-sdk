@@ -240,7 +240,7 @@ class ResponseHandler
                 }
                 if (isset($product['productProperties'])) {
                     $properties = $product['productProperties'];
-                    $productProperties = new ProductProperties();
+                    $productProperties = new ProductProperties("", 1, "gz");
                     if (isset($properties['productDescription'])) {
                         $productProperties->setProductDescription($properties['productDescription']);
                     }
