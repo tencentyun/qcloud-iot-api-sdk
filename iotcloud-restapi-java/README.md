@@ -62,6 +62,6 @@ private static final String SECRET_KEY = "XXX"; //用户从官网获取的Secret
 | 10   | deleteDevice          | 删除设备                        |
 | 11   | deleteProduct         | 删除产品                        |
 | 12   | getCreateMultiDevTask | 查询批量创建设备任务的执行状态      |
-| 13   | getMultiDevices       | 查询批量创建设备的执行结果.        |
+| 13   | getMultiDevices       | 查询批量创建设备的执行结果        |
 | 14   | publish               | 向指定的 TOPIC 发布消息          |
-
+| 15   | getDeviceOnlineStatus | 批量查询设备在线状态             |

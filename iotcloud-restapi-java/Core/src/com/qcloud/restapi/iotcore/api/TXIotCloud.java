@@ -223,4 +223,18 @@ public class TXIotCloud {
 
         return new PublishResponse(response);
     }
+
+    /**
+     * 批量查询设备的在线状态
+     *
+     * @param request 请求
+     * @return 应答
+     */
+    public GetDeviceOnlineStatusResponse getDeviceOnlineStatus(GetDeviceOnlineStatusRequest request) {
+        String requestURL = IotCloudUtils.buildRequestURL(request, mSecretId, mSecretKey, mRegion);
+
+        String response = HttpClient.httpsRequest(requestURL, HttpClient.METHOD_GET, null, mConnectTimeout, mReadTimeout);
+
+        return new GetDeviceOnlineStatusResponse(response);
+    }
 }
